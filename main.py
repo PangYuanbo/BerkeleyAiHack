@@ -44,7 +44,3 @@ def Today_Evaluation(
     evaluation=today.ask_for_evaluation()
     return {"Today_Evaluation": evaluation}
 
-@app.get("/Chatwith/")
-def Chatwith(
-        message: str,
-):
