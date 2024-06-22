@@ -9,7 +9,7 @@ openai_api_key = os.getenv("OPENAI_API_KEY")
 os.environ["OPENAI_API_KEY"] = openai_api_key
 from langchain_openai import ChatOpenAI
 
-model = ChatOpenAI(model="gpt-4o")
+model = ChatOpenAI(model="gpt-4o").bind(response_format={"type": "json_object"})
 class food_pantry:
     def __init__(self, age, height, weight,others,breakfast,lunch,dinner):
         self.age = age
