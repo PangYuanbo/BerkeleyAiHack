@@ -5,29 +5,17 @@ from fastapi import FastAPI
 from Calculate_Todaymeal import food_pantry
 from Todaymeal_Evaluation import today_evaluation
 app = FastAPI()
-
-
+from classes import Meal, Evaluation
 @app.post("/todaymeal/")
 def todaymeal(
-        name: str,
-        age: int,
-        height: float,
-        weight: float,
-        others: str,
-        breakfast: str,
-        breakfast_annotations: str,
-        lunch: str,
-        lunch_annotations: str,
-        dinner: str,
-        dinner_annotations: str,
-
+        meal: Meal
 ):
 
-    food = food_pantry(age=age, height=height, weight=weight, others=others, breakfast=breakfast, lunch=lunch,
-                       dinner=dinner)
+    food = food_pantry(age=meal.age, height=meal.height, weight=meal.weight, others=meal.others, breakfast=meal.breakfast, lunch=meal.lunch,
+                       dinner=meal.dinner)
     food.calculate_all()
     nutrition_needing = food.return_by_json()
-    meal_nutrition = food.Ask_Gpt_food_nutrition(breakfast_annotations=breakfast_annotations,lunch_annotations=lunch_annotations,dinner_annotations=dinner_annotations)
+    meal_nutrition = food.Ask_Gpt_food_nutrition(breakfast_annotations=meal.breakfast_annotations,lunch_annotations=meal.lunch_annotations,dinner_annotations=meal.dinner_annotations)
     return {
         "nutrition_needing": nutrition_needing,
         "meal_nutrition": meal_nutrition,
@@ -36,11 +24,9 @@ def todaymeal(
 
 @app.get("/Today_Evaluation/")
 def Today_Evaluation(
-        nutrition_needing: str,
-        meal_nutrition: str,
-        others: str,
+        Evaluation: Evaluation
 ):
-    today= today_evaluation(nutrition_needing=nutrition_needing, meal_nutrition=meal_nutrition, others=others)
+    today= today_evaluation(nutrition_needing=Evaluation.nutrition_needing, meal_nutrition=Evaluation.meal_nutrition, others=Evaluation.others)
     evaluation=today.ask_for_evaluation()
     return {"Today_Evaluation": evaluation}
 
