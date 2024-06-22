@@ -43,3 +43,8 @@ def Today_Evaluation(
     today= today_evaluation(nutrition_needing=nutrition_needing, meal_nutrition=meal_nutrition, others=others)
     evaluation=today.ask_for_evaluation()
     return {"Today_Evaluation": evaluation}
+
+@app.get("/Chatwith/")
+def Chatwith(
+        message: str,
+):
