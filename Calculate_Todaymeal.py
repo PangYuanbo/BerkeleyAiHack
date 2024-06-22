@@ -104,26 +104,26 @@ class food_pantry:
         }
         return self.Nutrition_needing
 
-    def Ask_Gpt_food_nutrition(self):
+    def Ask_Gpt_food_nutrition(self,breakfast_annotations,lunch_annotations,dinner_annotations):
         messages = [
             SystemMessage(
                 content="Please analyze the calorie, water, protein, carbohydrates, cholesterol, fibroid, Sodium, Zinc, Copper, Manganese, Selenium, VitaminA, VitaminC, VitaminD, VitaminE, VitaminK, Thiamin, VitamnB12, which are produced by this three meals, according to the picture I gave you. VitaminD, VitaminE, VitaminK, Thiamin, VitamnB12. please send it to me using Json format.Just give the Json format of the following image."),
             HumanMessage(
                 content=[
                     {"type": "text",
-                     "text": "breakfast"},
+                     "text": "breakfast"+breakfast_annotations},
                     {
                         "type": "image_url",
                         "image_url": {"url": f"data:image/jpeg;base64,{self.breakfast}"},
                     },
                     {"type": "text",
-                     "text": "lunch"},
+                     "text": "lunch"+   lunch_annotations},
                     {
                         "type": "image_url",
                         "image_url": {"url": f"data:image/jpeg;base64,{self.lunch}"},
                     },
                     {"type": "text",
-                     "text": "dinner"},
+                     "text": "dinner"+dinner_annotations},
                     {
                         "type": "image_url",
                         "image_url": {"url": f"data:image/jpeg;base64,{self.dinner}"},
@@ -135,15 +135,4 @@ class food_pantry:
         result = model.invoke(messages)
         self.meal_nutrition = result.content
         return self.meal_nutrition
-
-    def Ask_Gpt_others(self):
-        messages = [
-            SystemMessage(content="Please generate a Today's Diet report based on the user's particular situation, and total nutritional requirements, and total nutritional availability of the food."),
-            HumanMessage(content="Special circumstances of the person: "+self.other),
-            HumanMessage(content="The nutritional needs of the person: "+str(self.Nutrition_needing)),
-            HumanMessage(content="The nutritional content of the food: "+str(self.meal_nutrition))
-        ]
-        model.invoke(messages)
-        result = model.invoke(messages)
-        return result.content
 

@@ -15,8 +15,11 @@ def todaymeal(
         weight: float,
         others: str,
         breakfast: str,
+        breakfast_annotations: str,
         lunch: str,
+        lunch_annotations: str,
         dinner: str,
+        dinner_annotations: str,
 
 ):
 
@@ -24,7 +27,7 @@ def todaymeal(
                        dinner=dinner)
     food.calculate_all()
     nutrition_needing = food.return_by_json()
-    meal_nutrition = food.Ask_Gpt()
+    meal_nutrition = food.Ask_Gpt_food_nutrition(breakfast_annotations=breakfast_annotations,lunch_annotations=lunch_annotations,dinner_annotations=dinner_annotations)
     return {
         "nutrition_needing": nutrition_needing,
         "meal_nutrition": meal_nutrition,
