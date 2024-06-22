@@ -1,8 +1,14 @@
-import getpass
+import base64
 import os
-from langchain_core.messages import HumanMessage,SystemMessage
-os.environ["OPENAI_API_KEY"] =os.getenv("OPENAI_API_KEY") or getpass.getpass()
+from dotenv import load_dotenv
+from langchain_core.messages import HumanMessage, SystemMessage
+
+print(os.getcwd())
+load_dotenv()
+openai_api_key = os.getenv("OPENAI_API_KEY")
+os.environ["OPENAI_API_KEY"] = openai_api_key
 from langchain_openai import ChatOpenAI
+
 model = ChatOpenAI(model="gpt-4o")
 class food_pantry:
     def __init__(self, age, height, weight,others,breakfast,lunch,dinner):
@@ -32,6 +38,9 @@ class food_pantry:
         self.VitaminK=120
         self.Thiamin=1.2
         self.VitamnB12=2.4
+        self.Nutrition_needing = None
+        self.meal_nutrition = None
+
 
     def calculate_calorie(self):
         self.calorie = 10*self.weight + 6.25*self.height - 5*self.age + 5
@@ -72,7 +81,7 @@ class food_pantry:
         return self.calorie, self.water, self.protein, self.BMI, self.carbohydrates, self.cholesterol, self.fibroid
 
     def return_by_json(self):
-        return {
+        self.Nutrition_needing =  {
             "BMI": self.BMI,
             "calorie": self.calorie,
             "water": self.water,
@@ -93,8 +102,9 @@ class food_pantry:
             "Thiamin": self.Thiamin,
             "VitamnB12": self.VitamnB12
         }
+        return self.Nutrition_needing
 
-    def Ask_Gpt(self):
+    def Ask_Gpt_food_nutrition(self):
         messages = [
             SystemMessage(
                 content="Please analyze the calorie, water, protein, carbohydrates, cholesterol, fibroid, Sodium, Zinc, Copper, Manganese, Selenium, VitaminA, VitaminC, VitaminD, VitaminE, VitaminK, Thiamin, VitamnB12, which are produced by this three meals, according to the picture I gave you. VitaminD, VitaminE, VitaminK, Thiamin, VitamnB12. please send it to me using Json format.Just give the Json format of the following image."),
@@ -120,6 +130,18 @@ class food_pantry:
                     },
                 ]
             )
+        ]
+        model.invoke(messages)
+        result = model.invoke(messages)
+        self.meal_nutrition = result.content
+        return self.meal_nutrition
+
+    def Ask_Gpt_others(self):
+        messages = [
+            SystemMessage(content="Please generate a Today's Diet report based on the user's particular situation, and total nutritional requirements, and total nutritional availability of the food."),
+            HumanMessage(content="Special circumstances of the person: "+self.other),
+            HumanMessage(content="The nutritional needs of the person: "+str(self.Nutrition_needing)),
+            HumanMessage(content="The nutritional content of the food: "+str(self.meal_nutrition))
         ]
         model.invoke(messages)
         result = model.invoke(messages)

@@ -1,5 +1,4 @@
 import base64
-import getpass
 import os
 from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage, SystemMessage
@@ -9,9 +8,9 @@ load_dotenv()
 openai_api_key = os.getenv("OPENAI_API_KEY")
 os.environ["OPENAI_API_KEY"] = openai_api_key
 from langchain_openai import ChatOpenAI
-from langchain_core.output_parsers import StrOutputParser
 
-parser = StrOutputParser()
+
+
 
 
 # Function to encode the image
