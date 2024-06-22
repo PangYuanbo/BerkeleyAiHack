@@ -123,5 +123,5 @@ class food_pantry:
         ]
         model.invoke(messages)
         result = model.invoke(messages)
-        print(result.content)
+        return result.content
 
