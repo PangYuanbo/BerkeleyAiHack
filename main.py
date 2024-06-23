@@ -16,7 +16,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-from classes import Meal, Evaluation
+from classes import Meal, Evaluation, Chat
 @app.post("/todaymeal/")
 def todaymeal(
         meal: Meal
@@ -33,11 +33,16 @@ def todaymeal(
     }
 
 
-@app.get("/Today_Evaluation/")
+@app.post("/Today_Evaluation/")
 def Today_Evaluation(
         Evaluation: Evaluation
 ):
     today= today_evaluation(nutrition_needing=Evaluation.nutrition_needing, meal_nutrition=Evaluation.meal_nutrition, others=Evaluation.others)
     evaluation=today.ask_for_evaluation()
     return {"Today_Evaluation": evaluation}
+
+@app.post("/chat/")
+def chat(
+        chat: Chat
+):
 

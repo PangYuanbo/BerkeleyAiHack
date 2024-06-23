@@ -19,3 +19,12 @@ class Evaluation(BaseModel):
     nutrition_needing: str
     meal_nutrition: str
     others: str
+
+class Chat(BaseModel):
+    information: str
+    history: str
+    week_nutrition: str
+    nutrition_needing_today: str
+    meal_nutrition_today: str
+    others: str
+    message: str

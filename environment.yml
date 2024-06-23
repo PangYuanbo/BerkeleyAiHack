@@ -87,12 +87,16 @@ dependencies:
       - annotated-types==0.7.0
       - anyio==4.4.0
       - charset-normalizer==3.3.2
+      - dataclasses-json==0.6.7
       - distro==1.9.0
       - exceptiongroup==1.2.1
       - httpcore==1.0.5
       - httpx==0.27.0
       - jsonpointer==3.0.0
+      - langchain-community==0.2.5
       - langchain-openai==0.1.9
+      - marshmallow==3.21.3
+      - mypy-extensions==1.0.0
       - openai==1.35.3
       - orjson==3.10.5
       - packaging==24.1
@@ -106,4 +110,5 @@ dependencies:
       - tiktoken==0.7.0
       - tqdm==4.66.4
       - typing-extensions==4.12.2
+      - typing-inspect==0.9.0
 prefix: /opt/anaconda3/envs/BerkeleyaiHack
