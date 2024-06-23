@@ -1,12 +1,15 @@
 import base64
+import json
 import os
 from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage, SystemMessage
-
+import requests
 print(os.getcwd())
 load_dotenv()
 openai_api_key = os.getenv("OPENAI_API_KEY")
+ydc_api_key =os.getenv("YDC_API_KEY")
 os.environ["OPENAI_API_KEY"] = openai_api_key
+os.environ["YDC_API_KEY"] = ydc_api_key
 from langchain_openai import ChatOpenAI
 model = ChatOpenAI(model="gpt-4o").bind(response_format={"type": "json_object"})
 class chat:
@@ -27,8 +30,33 @@ class chat:
                     HumanMessage(content="others"+self.others),
                    HumanMessage(content="message_history"+self.history),
                    HumanMessage(content="message"+self.message)]
-        response = model.ask(message)
+        model.invoke(message)
+        result = model.invoke(message)
+        data = json.loads(result.content)
+        response = data.get('response', 'No response provided')
+        using_search_engine = data.get('using_search_engine', 'No search engine information provided')
+        what_to_search = data.get('What to search', 'No search query provided')
+        if using_search_engine == 'True':
+            search=self.ask_youdotcom(what_to_search)
+            return search
+        else:
+            return response
 
-        return response
+    def ask_youdotcom(self, message: str) :
+        url = "https://chat-api.you.com/research"
 
-a=chat(information="information",history="history",week_nutrition="week_nutrition", nutrition_needing_today="nutrition_needing_today", meal_nutrition_today="meal_nutrition_today", others="others", message="message")
+        payload = {
+            "query": message,
+            "chat_id": "3c90c3cc-0d44-4b50-8888-8dd25736052a"
+        }
+        headers = {
+            "X-API-Key": ydc_api_key,
+            "Content-Type": "application/json"
+        }
+
+        response = requests.request("POST", url, json=payload, headers=headers)
+        return response.text
+
+
+a=chat(information="information",history="history",week_nutrition="week_nutrition", nutrition_needing_today="nutrition_needing_today", meal_nutrition_today="meal_nutrition_today", others="others", message="show me the restaurant near UCB?")
+print(a.ask_for_chat())
