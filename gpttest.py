@@ -19,18 +19,18 @@ def encode_image(image_path):
         return base64.b64encode(image_file.read()).decode('utf-8')
 
 
-breakfast = encode_image("image/banana.jpg")
+breakfast = encode_image("week/Day2/Breakfast/breakfast.webp")
 print(breakfast)
-lunch = encode_image("image/hamburger.jpg")
+lunch = encode_image("week/Day2/Lunch/lunch.webp")
 print(lunch)
-dinner = encode_image("image/oreo.jpg")
+dinner = encode_image("week/Day2/Dinner/dinner.webp")
 print(dinner)
 
 model = ChatOpenAI(model="gpt-4o").bind(response_format={"type": "json_object"})
 response_format={ "type": "json_object" }
 messages = [
     SystemMessage(
-        content="Please analyze the calorie, water, protein, carbohydrates, cholesterol, fibroid, Sodium, Zinc, Copper, Manganese, Selenium, VitaminA, VitaminC, VitaminD, VitaminE, VitaminK, Thiamin, VitamnB12, which are produced by this three meals, according to the picture I gave you. VitaminD, VitaminE, VitaminK, Thiamin, VitamnB12. please send it to me using Json format.Just give the Json format of the following image."),
+        content="Please provide a detailed nutrition breakdown for three meals: breakfast, lunch, and dinner. Include the food name and values for calories, water, protein, carbohydrates, cholesterol, fibroid, sodium, zinc, copper, manganese, selenium, vitamin A, vitamin C, vitamin D, vitamin E, vitamin K, thiamin, and vitamin B12. The response should be in the following JSON format: {\"breakfast\": {\"food_name\": \"Oatmeal with bananas, walnuts, and honey\",\"calories\": 350,\"water\": 72,\"protein\": 7,\"carbohydrates\": 60,\"cholesterol\": 0,\"fibroid\": 6,\"sodium\": 10,\"zinc\": 1.1,\"copper\": 0.2,\"manganese\": 1.5,\"selenium\": 4.5,\"vitaminA\": 10,\"vitaminC\": 10,\"vitaminD\": 0,\"vitaminE\": 0.5,\"vitaminK\": 1.5,\"thiamin\": 0.15,\"vitaminB12\": 0},\"lunch\": {\"food_name\": \"Turkey wrap with avocado, tomato, lettuce, cucumber, and carrot sticks\",\"calories\": 400,\"water\": 85,\"protein\": 25,\"carbohydrates\": 45,\"cholesterol\": 35,\"fibroid\": 10,\"sodium\": 600,\"zinc\": 2.5,\"copper\": 0.1,\"manganese\": 0.3,\"selenium\": 18,\"vitaminA\": 100,\"vitaminC\": 30,\"vitaminD\": 0,\"vitaminE\": 2,\"vitaminK\": 20,\"thiamin\": 0.2,\"vitaminB12\": 1},\"dinner\": {\"food_name\": \"Grilled chicken with rice and mixed vegetables\",\"calories\": 500,\"water\": 80,\"protein\": 35,\"carbohydrates\": 60,\"cholesterol\": 85,\"fibroid\": 8,\"sodium\": 500,\"zinc\": 3,\"copper\": 0.2,\"manganese\": 0.5,\"selenium\": 25,\"vitaminA\": 150,\"vitaminC\": 40,\"vitaminD\": 0,\"vitaminE\": 1,\"vitaminK\": 30,\"thiamin\": 0.3,\"vitaminB12\": 1.5}}."),
     HumanMessage(
         content=[
             {"type": "text",
@@ -46,7 +46,7 @@ messages = [
                 "image_url": {"url": f"data:image/jpeg;base64,{lunch}"},
             },
             {"type": "text",
-             "text": "dinner"},
+             "text": "Dinner"},
             {
                 "type": "image_url",
                 "image_url": {"url": f"data:image/jpeg;base64,{dinner}"},

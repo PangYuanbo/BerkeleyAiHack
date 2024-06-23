@@ -123,7 +123,7 @@ class food_pantry:
                         "image_url": {"url": f"data:image/jpeg;base64,{self.lunch}"},
                     },
                     {"type": "text",
-                     "text": "dinner"+dinner_annotations},
+                     "text": "Dinner"+dinner_annotations},
                     {
                         "type": "image_url",
                         "image_url": {"url": f"data:image/jpeg;base64,{self.dinner}"},

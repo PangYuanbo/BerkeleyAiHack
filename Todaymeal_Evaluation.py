@@ -8,13 +8,15 @@ load_dotenv()
 openai_api_key = os.getenv("OPENAI_API_KEY")
 os.environ["OPENAI_API_KEY"] = openai_api_key
 from langchain_openai import ChatOpenAI
+
 model = ChatOpenAI(model="gpt-4o")
 
+
 class today_evaluation:
-    def __init__(self,nutrition_needing:str,meal_nutrition:str,others:str):
-        self.nutrition_needing=nutrition_needing
-        self.meal_nutrition=meal_nutrition
-        self.other:str = others
+    def __init__(self, nutrition_needing: str, meal_nutrition: str, others: str):
+        self.nutrition_needing = nutrition_needing
+        self.meal_nutrition = meal_nutrition
+        self.other: str = others
 
     def ask_for_evaluation(self):
         messages = [
