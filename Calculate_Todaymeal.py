@@ -114,19 +114,19 @@ class food_pantry:
                      "text": "breakfast"+breakfast_annotations},
                     {
                         "type": "image_url",
-                        "image_url": {"url": f"data:image/jpeg;base64,{self.breakfast}"},
+                        "image_url": {"url": self.breakfast},
                     },
                     {"type": "text",
                      "text": "lunch"+   lunch_annotations},
                     {
                         "type": "image_url",
-                        "image_url": {"url": f"data:image/jpeg;base64,{self.lunch}"},
+                        "image_url": {"url":self.lunch},
                     },
                     {"type": "text",
                      "text": "Dinner"+dinner_annotations},
                     {
                         "type": "image_url",
-                        "image_url": {"url": f"data:image/jpeg;base64,{self.dinner}"},
+                        "image_url": {"url": self.dinner},
                     },
                 ]
             )
