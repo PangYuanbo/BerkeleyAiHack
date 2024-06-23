@@ -58,5 +58,5 @@ class chat:
         return response.text
 
 
-a=chat(information="information",history="history",week_nutrition="week_nutrition", nutrition_needing_today="nutrition_needing_today", meal_nutrition_today="meal_nutrition_today", others="others", message="show me the restaurant near UCB?")
-print(a.ask_for_chat())
+# a=chat(information="information",history="history",week_nutrition="week_nutrition", nutrition_needing_today="nutrition_needing_today", meal_nutrition_today="meal_nutrition_today", others="others", message="show me the restaurant near UCB?")
+# print(a.ask_for_chat())
