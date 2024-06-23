@@ -45,7 +45,14 @@ def Today_Evaluation(
 def chat(
         chat: Optional[Chat]
 ):
-    chatbot= chat_bot(information=chat.information, message=chat.message)
-    chat_response=chatbot.ask_for_chat()
-    return {"chat_response": chat_response}
+    chatbot = chat_bot(information=chat.information, message=chat.message, img=chat.image, image_type=chat.image_type)
+    if (chat.image=="0"):
+
+        chat_response=chatbot.ask_for_chat()
+        return {"chat_response": chat_response}
+    else:
+        chat_response=chatbot.aks_aws_claude()
+        return {"chat_response": chat_response}
+
+
 

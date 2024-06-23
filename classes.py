@@ -22,4 +22,6 @@ class Evaluation(BaseModel):
 
 class Chat(BaseModel):
     information: str
+    image: str
+    image_type: str
     message: str
