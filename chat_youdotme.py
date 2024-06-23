@@ -29,7 +29,7 @@ class chat_bot:
         what_to_search = data.get('What to search', 'No search query provided')
         if using_search_engine == 'True':
             search=self.ask_youdotcom(what_to_search)
-            return search
+            return 'search'+search
         else:
             return response
 
