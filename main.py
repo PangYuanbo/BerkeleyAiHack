@@ -5,7 +5,7 @@ from typing import Optional
 from Calculate_Todaymeal import food_pantry
 from Todaymeal_Evaluation import today_evaluation
 from fastapi.middleware.cors import CORSMiddleware
-from chat_youdotme import chat
+from chat_youdotme import chat_bot
 app = FastAPI()
 
 app.add_middleware(
@@ -45,7 +45,7 @@ def Today_Evaluation(
 def chat(
         chat: Optional[Chat]
 ):
-    chat_bot=chat(information=chat.information,history=chat.history,week_nutrition=chat.week_nutrition,nutrition_needing_today=chat.nutrition_needing_today,meal_nutrition_today=chat.meal_nutrition_today,others=chat.others,message=chat.message)
-    chat_response=chat_bot.ask_for_chat()
+    chatbot= chat_bot(information=chat.information, message=chat.message)
+    chat_response=chatbot.ask_for_chat()
     return {"chat_response": chat_response}
 

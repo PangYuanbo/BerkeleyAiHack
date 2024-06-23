@@ -22,9 +22,4 @@ class Evaluation(BaseModel):
 
 class Chat(BaseModel):
     information: str
-    history: str
-    week_nutrition: str
-    nutrition_needing_today: str
-    meal_nutrition_today: str
-    others: str
     message: str
