@@ -13,4 +13,4 @@ os.environ["YDC_API_KEY"] = ydc_api_key
 yr = YouRetriever()
 model = "gpt-4o"
 qa = RetrievalQA.from_chain_type(llm=ChatOpenAI(model=model), chain_type="stuff", retriever=yr)
-print(qa.run("What is the capital of France?and give me the weather in Paris with link."))
+print(qa.run("the restaurant is located in UCB?give me the address with google map."))

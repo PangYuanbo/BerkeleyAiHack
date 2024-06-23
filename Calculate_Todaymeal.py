@@ -43,11 +43,11 @@ class food_pantry:
 
 
     def calculate_calorie(self):
-        self.calorie = 10*self.weight + 6.25*self.height - 5*self.age + 5
+        self.calorie = 10.0*self.weight + 6.25*self.height - 5.0*self.age + 5.0
         return self.calorie
 
     def calculate_water(self):
-        self.water = 30*self.weight
+        self.water = 30.0*self.weight
         return self.water
 
     def calculate_protein(self):
