@@ -4,7 +4,18 @@ from fastapi import FastAPI
 
 from Calculate_Todaymeal import food_pantry
 from Todaymeal_Evaluation import today_evaluation
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 from classes import Meal, Evaluation
 @app.post("/todaymeal/")
 def todaymeal(
