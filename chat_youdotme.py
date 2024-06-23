@@ -65,7 +65,7 @@ class chat_bot:
             messages=[
                 {
                     "role": "user",
-                    "content": {
+                    "content": [{
                         "type": "image",
                         "source": {
                             "type": "base64",
@@ -73,14 +73,13 @@ class chat_bot:
                             "data": self.img,
                         },
                     },
+                        {
+                            "type": "text",
+                            "text":self.message
+                        }
+                    ],
                 },
-                {
-                    "role": "user",
-                    "content": {
-                        "type": "text",
-                        "text": self.message
-                    }
-                }
+
             ]
         )
         return {"chat_response": (message.content)}
